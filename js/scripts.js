@@ -28,6 +28,12 @@ const pokemtonRepository = (function() {
     listItem.appendChild(button);
     pokemonListElement.appendChild(listItem);
 
+    function clickEvent(button, pokemon) {
+      button.addEventListener('click', function() {
+        showDetails(pokemon);
+      });
+    }
+
     addButtonEventListener(button, pokemon); {
       button.addEventListener('click', function() {
         showDetails(pokemon);
