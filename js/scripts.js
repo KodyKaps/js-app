@@ -1,9 +1,9 @@
-const pokemtonRepository = (function() {
+const pokemonRepository = (function() {
 
   const pokemonList = [
-    {name: 'Bulbasur', type: 'grass', height: '2', weight: '15.2'},
-    {name: 'Charmander',type: 'fire', height: '2', weight: '18.7'},
-    {name: 'Squirtle', type: 'water', height: '1', weight: '19.8'}
+    { name: 'Bulbasaur', type: 'grass', height: 2, weight: 15.2 },
+    { name: 'Charmander', type: 'fire', height: 2, weight: 18.7 },
+    { name: 'Squirtle', type: 'water', height: 1, weight: 19.8 }
   ];
 
   function getAll() {
@@ -11,48 +11,36 @@ const pokemtonRepository = (function() {
   }
 
   function add(item) {
-    if (typeof item === 'object' && item.name && item.type && item.height && item.weight){
+    if (typeof item === 'object' && item.name && item.type && item.height && item.weight) {
       pokemonList.push(item);
     } else {
-      console.log('invalid Pokemon')
+      console.log('Invalid Pokémon');
     }
-   
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon);
   }
 
   function addListItem(pokemon) {
-    let pokemonListElement = document.querySelector('pokemon-list');
+    let pokemonListElement = document.querySelector('#pokemon-list');
     let listItem = document.createElement('li');
     let button = document.createElement('button');
 
-    button.innterText = pokemon.name;
+    button.innerText = pokemon.name;
     listItem.appendChild(button);
     pokemonListElement.appendChild(listItem);
 
-    function clickEvent(button, pokemon) {
-      button.addEventListener('click', function() {
-        showDetails(pokemon);
-      });
-    }
-
-    addButtonEventListener(button, pokemon); {
-      button.addEventListener('click', function() {
-        showDetails(pokemon);
-
-      });
-    }
-
-    function showDetails(pokemon) {
-      console.log(pokemon);
-    }
-
-    function addAllToList() {
-      getAll().forEach(function(pokemon) {
-        addListItem(pokemon);
-      });
-    }
-
+    button.addEventListener('click', function() {
+      showDetails(pokemon);
+    });
   }
- 
+
+  function addAllToList() {
+    getAll().forEach(function(pokemon) {
+      addListItem(pokemon);
+    });
+  }
 
   return {
     getAll: getAll,
@@ -60,9 +48,6 @@ const pokemtonRepository = (function() {
     addAllToList: addAllToList
   };
 
-  
-  
 })();
 
-pokemtonRepository.addAllToList();
-
+pokemonRepository.addAllToList();
