@@ -1,3 +1,4 @@
+console.log("JS loaded")
 const pokemonRepository = (function() {
 
   const pokemonList = [
@@ -37,6 +38,7 @@ const pokemonRepository = (function() {
   }
 
   function addAllToList() {
+    // debugger
     getAll().forEach(function(pokemon) {
       addListItem(pokemon);
     });
