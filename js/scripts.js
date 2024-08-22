@@ -1,11 +1,9 @@
 console.log("JS loaded")
 const pokemonRepository = (function() {
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-  const pokemonList = [
-    { name: 'Bulbasaur', type: 'grass', height: 2, weight: 15.2 },
-    { name: 'Charmander', type: 'fire', height: 2, weight: 18.7 },
-    { name: 'Squirtle', type: 'water', height: 1, weight: 19.8 }
-  ];
+
 
   function getAll() {
     return pokemonList;
