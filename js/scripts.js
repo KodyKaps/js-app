@@ -1,6 +1,6 @@
-console.log("JS loaded")
+console.log("JS loaded");
+
 const pokemonRepository = (function () {
-  //step 2
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
@@ -12,13 +12,14 @@ const pokemonRepository = (function () {
     if (typeof item === 'object' && item.name && item.url) {
       pokemonList.push(item);
     } else {
-      console.log('Invalid PokÃ©mon');
+      console.log('Invalid Pokémon');
     }
   }
 
   function showDetails(pokemon) {
-    
-    loadDetails(pokemon)
+    loadDetails(pokemon).then(details => {
+      modalController.showModal(details);
+    });
   }
 
   function addListItem(pokemon) {
@@ -36,39 +37,32 @@ const pokemonRepository = (function () {
   }
 
   function addAllToList() {
-    // debugger
     loadList().then(response => {
-      //raw response
-      console.log("raw response", response)
-      //parse to json data
-      response.json().then(data =>{
-        console.log("parsed response", data)
-        data.results.forEach(p => addListItem(p))
-      })
+      console.log("raw response", response);
+      response.json().then(data => {
+        console.log("parsed response", data);
+        data.results.forEach(p => addListItem(p));
+      });
     })
     .catch(err => {
-      console.error("Api failed")
-    })
-    
-    
+      console.error("API failed");
+    });
   }
-  //step 3
-  function loadList(){
-    //use fetch to get pokemon
-    //.then waits for resolved
-    return fetch(apiUrl)
 
+  function loadList() {
+    return fetch(apiUrl);
   }
-  function loadDetails(pokemon){
-    //use fetch to get pokemon details using the detailsUrl
-    fetch(pokemon.url).then(response => {
-      response.json().then(data =>{
-        console.log("details", data)
-        //put this on a modal and open it
-        return data
-      })
-    })
 
+  function loadDetails(pokemon) {
+    return fetch(pokemon.url).then(response => {
+      return response.json().then(details => {
+        return {
+          name: pokemon.name,
+          height: details.height,
+          imageUrl: details.sprites.front_default,
+        };
+      });
+    });
   }
 
   return {
@@ -76,10 +70,51 @@ const pokemonRepository = (function () {
     add: add,
     addAllToList: addAllToList,
     loadDetails: loadDetails,
-    loadList: loadList
+    loadList: loadList,
   };
-
 })();
 
-pokemonRepository.addAllToList();
+const modalController = (function () {
+  const modal = document.getElementById('pokemon-modal');
+  const closeButton = document.querySelector('.close-button');
+
+  function showModal(details) {
+    const pokemonNameElement = document.getElementById('pokemon-name');
+    const pokemonHeightElement = document.getElementById('pokemon-height');
+    const pokemonImageElement = document.getElementById('pokemon-image');
+
+    pokemonNameElement.innerText = details.name;
+    pokemonHeightElement.innerText = `Height: ${details.height}`;
+    pokemonImageElement.src = details.imageUrl;
+    pokemonImageElement.alt = details.name;
+
+    modal.style.display = 'block';
+  }
+
+  function hideModal() {
+    modal.style.display = 'none';
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === 'Escape') {
+      hideModal();
+    }
+  }
+
+  function handleOutsideClick(event) {
+    if (event.target === modal) {
+      hideModal();
+    }
+  }
+
+  closeButton.addEventListener('click', hideModal);
+  window.addEventListener('keydown', handleKeyPress);
+  window.addEventListener('click', handleOutsideClick);
+
+  return {
+    showModal: showModal,
+    hideModal: hideModal,
+  };
+})();
+
 pokemonRepository.addAllToList();

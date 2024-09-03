@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     
+    
     <title>Simple JS App</title>
 </head>
 <body>
     <div id="pokemon-list"></div>
+    <button id ="show-modal">show modal</button>
+    <div id = "modal-container">
+        <div class="modal" id="pokemon-modal">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <h1 id="pokemon-name"></h1>
+              <p id="pokemon-height"></p>
+              <!-- <img id="pokemon-image" src="" alt="Pokemon Image"> -->
+            </div>
+          </div>  
+    </div>
     <!--Best practice is to load js scripts in body (at bottom) becuase it may need body elements to function-->
     <scrpt src="./js/fetch.umd.js"></scrpt>
     <scrpt src="./js/polyfill.min.js"></scrpt>
