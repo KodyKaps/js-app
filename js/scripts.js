@@ -2,7 +2,7 @@ console.log("JS loaded");
 
 const pokemonRepository = (function () {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=20';
 
   function getAll() {
     return pokemonList;
@@ -75,7 +75,7 @@ const pokemonRepository = (function () {
 })();
 
 const modalController = (function () {
-  const modal = document.getElementById('pokemon-modal');
+  const modal = document.getElementById('modal-container');
   const closeButton = document.querySelector('.close-button');
 
   function showModal(details) {
