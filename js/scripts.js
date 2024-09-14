@@ -25,12 +25,24 @@ const pokemonRepository = (function () {
   function addListItem(pokemon) {
     let pokemonListElement = document.querySelector('#pokemon-list');
     let listItem = document.createElement('li');
-    let button = document.createElement('button');
+    
+    // Assigning class to list item
+    listItem.classList.add("list-group-item");
 
+    // Creating button element
+    let button = document.createElement('button');
     button.innerText = pokemon.name;
+
+    // Adding Bootstrap button classes
+    button.className = 'btn btn-primary';
+
+    // Appending button to list item
     listItem.appendChild(button);
+
+    // Appending list item to the pokemon list
     pokemonListElement.appendChild(listItem);
 
+    // Adding event listener for button click to show details
     button.addEventListener('click', function () {
       showDetails(pokemon);
     });
